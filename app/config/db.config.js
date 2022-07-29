@@ -1,8 +1,12 @@
+// USER: "db_username",
+// PASSWORD: "db_password",
+// DB: "test_api1",
+
 const config = {
     HOST: "localhost",
-    USER: "db_username",
-    PASSWORD: "db_password",
-    DB: "db_name",
+    USER: "role_test_api1",
+    PASSWORD: "wsxdr666",
+    DB: "test_api1",
     dialect: "postgres",
     pool: {
         max: 5,
