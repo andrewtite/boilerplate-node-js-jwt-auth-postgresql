@@ -1,16 +1,23 @@
-# Express Node.js API Server Boilerplate
+# Express Node.js API Server Boilerplate with JWT and PostgreSQL
 
 This is a boilerplate for projects requiring:
 
-* backend with JWT Auth.
+* Backend with JWT REST API.
+* Access to PostgreSQL from your backend
+
+
 * Project status: development/prototype
-
-
 * Developed by Andrew Tite
 
   andrewtite@gmail.com
 
   [<img src="https://img.shields.io/badge/gmail-%23DD0031.svg?&style=for-the-badge&logo=gmail&logoColor=white"/>](mailto:andrewtite@gmail.com)
+
+A <strong>legal JWT</strong> must be added to <strong>HTTP Header</strong> if Client accesses protected resources.
+
+A <strong>refreshToken</strong> will be provided at the time user signs in.
+
+![JWT Flow Diagram](jwt-refresh-token-node-js-example-flow.png "JWT Flow Diagram")
 
 ## Installation
 * Clone git repo
@@ -18,7 +25,7 @@ This is a boilerplate for projects requiring:
 * Install required node packages from the command line: `npm install`
 * Run server from the command line: `node server.js`
 
-# REST API
+# Available REST API Requests
 There are several basic API calls out of the box.
 
 ## Sign Up
@@ -78,6 +85,35 @@ curl --location --request POST 'http://localhost:8080/api/auth/signin' \
       "email":"mod@example.com",
       "roles":["ROLE_USER","ROLE_MODERATOR"],
       "accessToken":"eyJh...nYfo"
+    }
+
+## Use Refresh Code to get New API Access Code
+
+### Request
+
+`POST /api/auth/refreshCode`
+
+```
+curl --location --request POST 'http://localhost:8080/api/auth/refreshToken' \
+     --header 'Content-Type: application/json' \
+     --data-raw '{
+        "refreshToken": "728d...0462"
+     }'
+```
+
+### Response
+
+    HTTP/1.1 200 Success
+    Date: Fri, 29 Jul 2022 20:05:31 GMT
+    Status: 200 Success
+    Connection: keep-alive
+    Keep-Alive: timeout=5
+    Content-Type: application/json
+    Content-Length: 209
+
+    {
+        "accessToken": "eyJh...kCfE",
+        "refreshToken": "728d...0462"
     }
 
 ## Access Protected User Resource
