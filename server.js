@@ -16,10 +16,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 const Role = db.role;
 
+// START PRODUCTION ONLY 
 // in production, just sync. comment out for development
 // db.sequelize.sync();
+// END PRODUCTION ONLY 
 
+// START DEVELOPMENT ONLY
 // in development, you may need to drop and re-sync. comment out for production.
+// if you use the follow dev sync code, the database will be rebuilt
+// and you will lose your data! Make sure you comment out for production!
 db.sequelize.sync({force: true}).then(() => {
     console.log('Drop and Re-sync db.');
     initial();
@@ -41,6 +46,7 @@ const initial = () => {
         name: "admin"
     });
 }
+// END DEVELOPMENT ONLY
 
 // simple route
 // app.get("/", (req, res) => {
